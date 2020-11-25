@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>파일업로드 List</h1>
+        <br />
+        <div>
+            <h2>dest 파일 업로드</h2>
+            <form action="/upload" enctype="multipart/form-data" method="post">
+                <input type="file" name="singleFile" /><button type="submit">
+                    업로드
+                </button>
+            </form>
+            <br />
+            <br />
+            <h2>diskStorage 파일 업로드</h2>
+            <form
+                action="/upload/single"
+                enctype="multipart/form-data"
+                method="post"
+            >
+                <input type="file" name="singleFile" />
+                <button type="submit">기존 이름 업로드</button>
+            </form>
+            <br />
+            <br />
+            <h2>다중 파일 업로드</h2>
+            <form
+                action="/upload/multi"
+                enctype="multipart/form-data"
+                method="post"
+            >
+                <input type="file" name="multiFile" multiple />
+                <button type="submit">다중업로드</button>
+            </form>
+        </div>
+    </body>
+</html>
