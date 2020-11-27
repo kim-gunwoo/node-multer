@@ -37,6 +37,43 @@
                 <input type="file" name="multiFile" multiple />
                 <button type="submit">다중업로드</button>
             </form>
+            <br />
+            <div id="root"></div>
         </div>
+        <script>
+            const port = 8000;
+            const domain = `http://localhost:${port}/upload`;
+            let root = document.getElementById("root");
+
+            getSearch = () => {
+                let xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === xhr.DONE) {
+                        if (xhr.status === 200 || xhr.status === 201) {
+                            let data = JSON.parse(xhr.responseText);
+
+                            if (data.err) {
+                                alert(`err 발생 : ${data.err}`);
+                            }
+
+                            if (data.msg) {
+                                const file = data.files;
+                                for (let i in file) {
+                                    const fileName = file[i];
+                                    root.innerHTML += `<a href="${domain}/download?file=${fileName}">쿼리스트링 = ${fileName}</a><br/>`;
+                                    root.innerHTML += `<a href="${domain}/download/${fileName}">시멘틱(간편) url =${fileName}</a><br/>`;
+                                }
+                            }
+                        } else {
+                            console.error(xhr.responseText);
+                        }
+                    }
+                };
+                xhr.open("GET", `${domain}`);
+                xhr.send();
+            };
+
+            getSearch();
+        </script>
     </body>
 </html>
